@@ -18,7 +18,7 @@
  *
  */
 function getCurrentFunctionName() {
-  throw new Error('Not implemented');
+  return getCurrentFunctionName.name;
 }
 
 /**
@@ -32,8 +32,8 @@ function getCurrentFunctionName() {
  *   getFunctionBody(hiHello) => "function hiHello() { console.log('hello world'); }"
  *
  */
-function getFunctionBody(/* func */) {
-  throw new Error('Not implemented');
+function getFunctionBody(func) {
+  return func.toString();
 }
 
 /**
@@ -50,8 +50,8 @@ function getFunctionBody(/* func */) {
  *  ]) => [0, 1, 2]
  *
  */
-function getArgumentsCount(/* funcs */) {
-  throw new Error('Not implemented');
+function getArgumentsCount(funcs) {
+  return funcs.map((func) => func.length);
 }
 
 /**
@@ -70,8 +70,10 @@ function getArgumentsCount(/* funcs */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return function F(base) {
+    return base ** exponent;
+  };
 }
 
 /**
@@ -87,8 +89,15 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...coefficients) {
+  if (coefficients.length === 0) {
+    return null;
+  }
+  return function F(x) {
+    return coefficients.reduce((result, coeff, index) => {
+      return result + coeff * x ** (coefficients.length - index - 1);
+    }, 0);
+  };
 }
 
 /**
@@ -105,8 +114,17 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const cache = {};
+  return function F(...args) {
+    const n = args[0];
+    if (n in cache) {
+      return cache[n];
+    }
+    const result = func(n);
+    cache[n] = result;
+    return result;
+  };
 }
 
 /**
@@ -168,8 +186,10 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return function F(...args2) {
+    return fn.apply(this, [...args1, ...args2]);
+  };
 }
 
 /**
