@@ -181,7 +181,7 @@ function retry(func, attempts) {
 function logger(func, logFunc) {
   return function F(...args) {
     const funcName = func.name;
-    const argsString = args.map((arg) => JSON.stringify(arg)).join(', ');
+    const argsString = args.map((arg) => JSON.stringify(arg)).join(',');
     logFunc(`${funcName}(${argsString}) starts`);
     const result = func(...args);
     logFunc(`${funcName}(${argsString}) ends`);
@@ -193,6 +193,7 @@ function logger(func, logFunc) {
  * Return the function with partial applied arguments
  *
  * @param {Function} fn
+ * @param args1
  * @return {Function}
  *
  * @example
