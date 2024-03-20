@@ -148,7 +148,7 @@ function retry(func, attempts) {
       try {
         return func();
       } catch (error) {
-        console.log(`Attempt ${i + 1} failed, retrying...`);
+        /* empty */
       }
     }
     throw new Error('All attempts failed');
